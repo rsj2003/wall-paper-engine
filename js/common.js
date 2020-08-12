@@ -1,4 +1,5 @@
 var hexcl,time=new Date(),blsp,bltf,bg,x
+let winw=window.innerWidth,winh=window.innerHeight
 $(document).ready(function(){
     // console.log(time)
     setInterval(function(){
@@ -235,7 +236,7 @@ $(document).ready(function(){
             $(color_p[0]).children("input").val("#ffffff")
             $(color_p[1]).children("input").val("#77ffbb")
             $(num_p[3]).children("input").val(10)
-            $(num_p[4]).children("input").val(700)
+            $(num_p[4]).children("input").val(Math.floor((winw/100)*40))
             $(color_p[2]).children("input").val("#ffffff")
             $(color_p[3]).children("input").val("#77ffbb")
             $(color_p[4]).children("input").val("#ffffff")
@@ -246,7 +247,7 @@ $(document).ready(function(){
             $(".time").css({"color":"#ffffff"})
             $(".time").css({"text-shadow":`#77ffbb 0 0 5px,#77ffbb 0 0 5px,#77ffbb 0 0 5px`})
             blsp=10
-            $(".c_line").css({"width":`700px`,"height":`700px`})
+            $(".c_line").css({"width":`${Math.floor((winw/100)*40)}px`,"height":`${Math.floor((winw/100)*40)}px`})
             $(".c_line").css({"border-color":"#ffffff"})
             $(".c_line").css({"box-shadow":`#77ffbb 0 0 20px 5px,#77ffbb 0 0 20px 5px inset`})
             $("body").css({"background":"#ffffff"})
