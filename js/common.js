@@ -1,4 +1,4 @@
-var hexcl,time=new Date(),blsp,bltf,bg
+var hexcl,time=new Date(),blsp,bltf,bg,x
 $(document).ready(function(){
     // console.log(time)
     setInterval(function(){
@@ -159,7 +159,7 @@ $(document).ready(function(){
             $(this).removeClass("toggle_false")
             switch($(this).index()){
                 case 0:
-                    $("#rain").css({"display":"block"})
+                    $("#snow").css({"display":"block"})
                     settf("flakeCount",2000,"t")
                     break
                 case 7:
@@ -196,7 +196,7 @@ $(document).ready(function(){
             $(this).addClass("toggle_false")
             switch($(this).index()){
                 case 0:
-                    $("#rain").css({"display":"none"})
+                    $("#snow").css({"display":"none"})
                     settf("flakeCount",2000,"f")
                     break
                 case 7:
@@ -254,8 +254,9 @@ $(document).ready(function(){
             localStorage.clear()
             $(".toggle").removeClass("toggle_false")
             $(".blink_t").addClass("toggle_false")
-            $("#rain").css({"display":`block`})
+            $("#snow").css({"display":`block`})
             $(".time").css({"display":`block`})
+            $(".time").addClass("nobl")
             $(".c_line").css({"display":`block`})
             $(".bg").css({"display":`block`})
             $(".bg,.bg-image").css({"background-image":`url(./images/bg-0.jpg)`})
@@ -266,12 +267,34 @@ function num(n,w){
     n=n+""
     return n.length>=w?n:new Array(w-n.length+1).join("0")+n
 }
-$(document).keydown(function(key){
+$(document)
+.on("keydown",function(key){
     if(key.keyCode==9){
         key.preventDefault();
         $(".menu").toggleClass("tab")
         $("#sub_menu").toggleClass("toggletab")
         $(".sub_menu").removeClass("tab")
+    }
+})
+.on("mousedown",function(e){
+    x=e.pageX
+})
+.on("mouseup",function(e){
+    if(e.pageX-x>0){
+        if($(".menu").is(".tab")){
+            $(".sub_menu").addClass("tab")
+        }else{
+            $(".menu").addClass("tab")
+            $("#sub_menu").addClass("toggletab")
+        }
+    }else if(x-e.pageX>0){
+        if($(".sub_menu").is(".tab")){
+            $(".sub_menu").removeClass("tab")
+        }else{
+            $(".menu").removeClass("tab")
+            $("#sub_menu").removeClass("toggletab")
+        }
+
     }
 })
 .on("click",".bg-image",function(){

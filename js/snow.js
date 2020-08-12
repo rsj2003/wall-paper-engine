@@ -8,7 +8,7 @@
 
 
 var flakes = [],
-    canvas = document.getElementById("rain"),
+    canvas = document.getElementById("snow"),
     ctx = canvas.getContext("2d"),
     flakeCount = 5000,
     mX = -10000,
@@ -123,7 +123,7 @@ init();
 
 $(document).ready(function(){
     flakeCount=2000
-    $("#rain").css({display:"block"})
+    $("#snow").css({display:"block"})
     $("#snow_cnt").on("change keyup paste mouseup",function(){
         if($(this).val()>5000){
             $("#snow_cnt").val(5000)

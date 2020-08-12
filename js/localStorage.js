@@ -3,6 +3,7 @@ $(document).ready(function(){
     mouseMoveR=localStorage.getItem("mouseMoveR")==null?200:localStorage.getItem("mouseMoveR")
     blsp=lotf("blsp",10)
     bg=lotf("bg",0)
+    let winw=window.innerWidth,winh=window.innerHeight
     var num_pa=$(".menu .num"),color_pa=$(".menu .color")
     $(num_pa[0]).children("input").val(flakeCount)
     $(num_pa[1]).children("input").val(snowSpeed)
@@ -10,7 +11,7 @@ $(document).ready(function(){
     $(color_pa[0]).children("input").val(lotf("text-color","#ffffff"))
     $(color_pa[1]).children("input").val(lotf("text-shadow","#77ffbb"))
     $(num_pa[3]).children("input").val(blsp)
-    $(num_pa[4]).children("input").val(localStorage.getItem("circle-wh")==null?700:localStorage.getItem("circle-wh"))
+    $(num_pa[4]).children("input").val(localStorage.getItem("circle-wh")==null?Math.floor((winw/100)*40):localStorage.getItem("circle-wh"))
     $(color_pa[2]).children("input").val(lotf("circle-color","#ffffff"))
     $(color_pa[3]).children("input").val(lotf("circle-shadow","#77ffbb"))
     $(num_pa[5]).children("input").val(localStorage.getItem("bg-blur")==null?5:localStorage.getItem("bg-blur"))
@@ -67,6 +68,7 @@ $(document).ready(function(){
         $(".bg").css({"display":lotrfa("bg")})
         $(".toggle").eq(6).css({"background":"#aaaa","border-color":"#aaaa"}).addClass("toggle_false")
     }
+    $(".time").css({"font-size":`${Math.floor(winh/10)}px`,"width":`${winw}px`})
 })
 
 function lotf(l,n){
@@ -75,4 +77,9 @@ function lotf(l,n){
 function lotrfa(l){
     // console.log(localStorage.getItem(l)==null?"block":localStorage.getItem(l).substr(-2,2))
     return localStorage.getItem(l)==null?"block":localStorage.getItem(l).substr(-2,2)==",t"?"block":"none"
+}
+function fn(s){
+    let result
+    result = s.replace(/[^0-9]/g,"")
+    return result
 }

@@ -4,15 +4,15 @@ html{overflow:hidden;}
 .bg{background:no-repeat center/cover;position:absolute;left:-10px;right:-10px;top:-10px;bottom:-10px;filter:blur(5px);}
 .bg div{position:absolute;left:0;top:0;right:0;bottom:0;background:#0003}
 .circle{position:absolute;left:50%;top:50%;width:0;height:0;z-index:50;}
-.time{font-size:90px;color:#fff;text-shadow:#7fb 0 0 5px,#7fb 0 0 5px,#7fb 0 0 5px;width:500px;position:absolute;left:0;top:0;transform:translate(-50%,-50%);text-align:center;user-select:none;font-family:digital;}
+.time{font-size:100%;color: #ffffff;text-shadow:#7fb 0 0 5px,#7fb 0 0 5px, #77ffbb 0 0 5px;/*width:500px*/;position:absolute;left:0;top:0;transform:translate(-50%,-50%);text-align:center;user-select:none;font-family:digital;}
 .djb{font-family:djb-digital}
-.c_line{width:700px;height:700px;border-radius:50%;border:10px solid #fff;transform:translate(-50%,-50%);position:absolute;left:0;top:0;box-shadow:#7fb 0 0 20px 5px,#7fb 0 0 20px 5px inset;transform-origin:left top;pointer-events:none;}
+.c_line{width:40%;height:40%;border-radius:50%;border:10px solid #fff;transform:translate(-50%,-50%);position:absolute;left:0;top:0;box-shadow:#7fb 0 0 20px 5px,#7fb 0 0 20px 5px inset;transform-origin:left top;pointer-events:none;}
 /* .c_line>span{width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:#7fb 0 0 20px 5px;position:absolute;left:50%;transform:translate(-50%,0);}
 .c_line>span:nth-child(1){top:-50px;}
 .c_line>span:nth-child(2){bottom:-50px;} */
-.rain{position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;}
+.snow{position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;}
 /* .rains{position:absolute;background:url(../images/snow.png) no-repeat center/cover;} */
-#rain{position:absolute;top:0;left:0;display:none;}
+#snow{position:absolute;top:0;left:0;display:none;}
 /* menu */
 .menu{width:300px;height:100%;position:absolute;background:#0007;left:-300px;border-right:3px solid #fffa;transition:0.5s;color:#fff;z-index:500;text-align:center;overflow-y:auto;-ms-overflow-style:none;}
 .menu::-webkit-scrollbar{display:none;}
