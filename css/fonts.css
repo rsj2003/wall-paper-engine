@@ -1,0 +1,9 @@
+@charset "utf-8";
+@font-face{
+    font-family:digital;
+    src:url(../fonts/Digital\ Dismay.otf)
+}
+@font-face{
+    font-family:DJB-digital;
+    src:url(../fonts/DJB\ Get\ Digital.ttf)
+}

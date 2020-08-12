@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wallpaper engin</title>
+    <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery.js"></script>
+    <script src="./js/common.js"></script>
+</head>
+<body>
+    <div class="bg"><div></div></div>
+    <!-- <div class="rain"></div> -->
+    <div class="alert">TAB키를 눌러 메뉴를 열 수 있습니다.</div>
+    <div class="menu">
+        <h2 class="snow_t toggle">snow</h2>
+        <h3>count</h3>
+		<div class="num">
+            <input type="range" id="snow_cnt_ran" min="0" max="3000" value="2000">
+            <input type="number" id="snow_cnt" min="0" max="5000" value="2000"></div>
+        <h3>speed</h3>
+        <div class="num">
+            <input type="range" id="snow_speed_ran" min="0.5" max="50" value="1.5" step="0.1">
+            <input type="number" id="snow_speed" min="0.5" value="1.5" step="0.1">
+        </div>
+        <h3>mouse range</h3>
+        <div class="num">
+            <input type="range" id="snow_mouse_ran" min="0" max="10000" value="200">
+            <input type="number" id="snow_mouse" min="0" value="200">
+        </div>
+        <h2 class="clock_t toggle">clock</h2>
+        <h3 class="mb0">color</h3>
+        <div class="color">
+            <input type="text" id="text-color-text" value="#ffffff">
+            <input type="color" id="text-color" value="#ffffff">
+        </div>
+        <h3 class="mb0 mt1 text_color_t toggle">shadow-color</h3>
+        <div class="color">
+            <input type="text" id="text-shadow-text" value="#77ffbb">
+            <input type="color" id="text-shadow" value="#77ffbb">
+        </div>
+        <h3 class="mt1 blink_t toggle toggle_false">blink-time</h3>
+        <div class="num">
+            <input type="range" id="blink_speed_ran" min="1" max="50" value="10" step="0.1">
+            <input type="number" id="blink_speed" min="1" value="10" step="0.1">
+        </div>
+        <h2 class="circle_t toggle">circle</h2>
+        <h3>size</h3>
+        <div class="num">
+            <input type="range" id="circle_wh_ran" min="0" max="2000" value="700">
+            <input type="number" id="circle_wh" min="0" value="700">
+        </div>
+        <h3 class="mb0">color</h3>
+        <div class="color">
+            <input type="text" id="circle-color-text" value="#ffffff">
+            <input type="color" id="circle-color" value="#ffffff">
+        </div>
+        <h3 class="mb0 mt1 circle_color_t toggle">shadow-color</h3>
+        <div class="color">
+            <input type="text" id="circle-shadow-text" value="#77ffbb">
+            <input type="color" id="circle-shadow" value="#77ffbb">
+        </div>
+        <h2 class="bg_t toggle mt1">background</h2>
+        <h3>color</h3>
+        <div class="color">
+            <input type="text" id="bg-color-text" value="#ffffff">
+            <input type="color" id="bg-color" value="#ffffff">
+        </div>
+        <h3>blur</h3>
+        <div class="num">
+            <input type="range" id="bg_blur_ran" min="0" max="200" value="5" step="0.1">
+            <input type="number" id="bg_blur" min="0" value="5" step="0.1">
+        </div>
+        <h3 class="mb0">image</h3>
+        <div class="bg-image"></div>
+        <h2 class="reset mt1">reset</h2>
+    </div>
+    <div id="sub_menu">
+        <div class="sub_menu">
+            <div class="bg-img"></div>
+            <div class="bg-img"></div>
+            <div class="bg-img"></div>
+            <div class="bg-img"></div>
+            <div class="bg-img"></div>
+        </div>
+    </div>
+    <div id="wrap">
+        <div class="circle">
+            <div class="time nobl">
+                <div class="clock"><span></span><span>:</span><span></span><span>:</span><span></span></div>
+                <div class="date"><span></span><span class="djb">-</span class="djb"><span></span><span class="djb">-</span><span></span></div>
+            </div>
+            <div class="c_line"></div>
+        </div>
+    </div>
+    <canvas id="rain"></canvas>
+</body>
+<script src="./js/snow.js"></script>
+<script src="./js/localStorage.js"></script>
+</html>
