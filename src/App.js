@@ -1,4 +1,7 @@
 import localStorage from './localStorage';
+import storage from './storage';
+import { idSel, querySel, querySelAll } from "./utils";
+import { ColorService } from "./services";
 
 var hexcl, time = new Date(), flsp, bltf, bg, x, dop = true;
 let winw = window.innerWidth, winh = window.innerHeight;
@@ -6,7 +9,7 @@ window.onload = e => {
     snow_js();
     local();
     window.scrollTo(0, 1);
-    let
+    const
         clock_sp = querySelAll(".clock>span"),
         date_sp = querySelAll(".date>span"),
         time_sp = querySelAll(".time span");
@@ -29,7 +32,7 @@ window.onload = e => {
 
     function setime() {
         var tms = Math.floor(Math.random() * 10)
-        if (time_sp[tms].classList == ".cl_sp") {
+        if (time_sp[tms].classList === ".cl_sp") {
             setime()
             return
         }
@@ -190,36 +193,36 @@ window.onload = e => {
             switch (idx(e.target)) {
                 case 0:
                     idSel("snow").style.display = "block";
-                    settf("flakeCount", 2000, "t")
+                    storage.toggle("flakeCount", 2000, "t")
                     break
                 case 7:
                     querySelAll(".time").forEach(i => i.style.display = "");
-                    settf("text-color", "#ffffff", "t")
+                    storage.toggle("text-color", "#ffffff", "t")
                     break
                 case 10:
                     hexcl = idSel("text-shadow").value
                     querySelAll(".time").forEach(i => i.style.textShadow = `${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`);
-                    settf("text-shadow", "#77ffbb", "t")
+                    storage.toggle("text-shadow", "#77ffbb", "t")
                     break
                 case 12:
                     querySelAll(".time").forEach(i => i.classList.remove("nofl"));
                     setime()
                     setime()
                     setime()
-                    settf("flsp", 10, "t")
+                    storage.toggle("flsp", 10, "t")
                     break
                 case 14:
                     querySelAll(".c_line").forEach(i => i.style.display = "");
-                    settf("circle-color", "#ffffff", "t")
+                    storage.toggle("circle-color", "#ffffff", "t")
                     break
                 case 19:
                     hexcl = idSel("circle-shadow").value
                     querySelAll(".c_line").forEach(i => i.style.boxShadow = `${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`);
-                    settf("circle-shadow", "#77ffbb", "t")
+                    storage.toggle("circle-shadow", "#77ffbb", "t")
                     break
                 case 21:
                     querySelAll(".bg").forEach(i => i.style.display = `block`);
-                    settf("bg", "0", "t")
+                    storage.toggle("bg", "0", "t")
                     break
             }
         } else {
@@ -227,31 +230,31 @@ window.onload = e => {
             switch (idx(e.target)) {
                 case 0:
                     idSel("snow").style.display = "none";
-                    settf("flakeCount", 2000, "f")
+                    storage.toggle("flakeCount", 2000, "f")
                     break
                 case 7:
                     querySelAll(".time").forEach(i => i.style.display = "none");
-                    settf("text-color", "#ffffff", "f")
+                    storage.toggle("text-color", "#ffffff", "f")
                     break
                 case 10:
                     querySelAll(".time").forEach(i => i.style.textShadow = "none");
-                    settf("text-shadow", "#77ffbb", "f")
+                    storage.toggle("text-shadow", "#77ffbb", "f")
                     break
                 case 12:
                     querySelAll(".time").forEach(i => i.classList.add("nofl"));
-                    settf("flsp", 10, "f")
+                    storage.toggle("flsp", 10, "f")
                     break
                 case 14:
                     querySelAll(".c_line").forEach(i => i.style.display = "none");
-                    settf("circle-color", "#ffffff", "f")
+                    storage.toggle("circle-color", "#ffffff", "f")
                     break
                 case 19:
                     querySelAll(".c_line").forEach(i => i.style.boxShadow = "none");
-                    settf("circle-shadow", "#77ffbb", "f")
+                    storage.toggle("circle-shadow", "#77ffbb", "f")
                     break
                 case 21:
                     querySelAll(".bg").forEach(i => i.style.display = "none");
-                    settf("bg", "0", "f")
+                    storage.toggle("bg", "0", "f")
                     break
             }
         }

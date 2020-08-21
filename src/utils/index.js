@@ -1,5 +1,3 @@
-import storage from '../storage';
-
 export function hexcor(c, r, l) {
     if (c.length === 7 && c[0] === "#") {
         sethexcor(c, r, l)
@@ -21,15 +19,6 @@ export function sethexcor(c, r, l) {
     r.value = c
     hexcl = c
     localStorage.setItem(l, [c, localStorage.getItem(l) === null ? "t" : localStorage.getItem(l).substr(-2, 2) === ",t" || ",f" ? localStorage.getItem(l).substr(-1, 1) : "t"])
-}
-
-export function settf(l, c, t) {
-    storage.set(l, [
-        localStorage.getItem(l) === null ? c :
-        localStorage.getItem(l).substr(-2, 2) === ",t" ||
-        ",f" ? localStorage.getItem(l).substr(0, localStorage.getItem(l).length - 2) :
-        localStorage.getItem(l), t
-    ])
 }
 
 export const hasClass = (element, className) => element.classList.contains(className);

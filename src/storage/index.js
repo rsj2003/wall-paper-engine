@@ -31,6 +31,6 @@ export default Object.freeze({
         }
         const before = this.get(key).split(',')[0];
         this.set(key, [value, before === 't' ? 'f' : 't']);
-    }
+    },
 
 });
