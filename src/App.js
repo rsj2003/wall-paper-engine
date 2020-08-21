@@ -33,11 +33,11 @@ window.onload = e => {
             setime()
             return
         }
-        if (fClass(document.getElementsByClassName("time")[0], "nofl")) return
+        if (hasClass(document.getElementsByClassName("time")[0], "nofl")) return
         setTimeout(e => {
             time_sp[tms].style.opacity = "0.5";
             setTimeout(e => {
-                if (fClass(time_sp[tms], "cl_sp")) {
+                if (hasClass(time_sp[tms], "cl_sp")) {
                     setime()
                     return
                 }
@@ -56,7 +56,7 @@ window.onload = e => {
     }))
     document.addEventListener("mouseup", e => {
         time_sp.forEach(i => {
-            if (fClass(i, "cl_sp")) {
+            if (hasClass(i, "cl_sp")) {
                 i.classList.remove("cl_sp");
                 i.style.opacity = "";
             }
@@ -185,7 +185,7 @@ window.onload = e => {
     }))
     // toggle
     querySelAll(".toggle").forEach(i => i.addEventListener("click", e => {
-        if (fClass(e.target, "toggle_false")) {
+        if (hasClass(e.target, "toggle_false")) {
             e.target.classList.remove("toggle_false");
             switch (idx(e.target)) {
                 case 0:
@@ -317,7 +317,7 @@ document.addEventListener("keydown", function (key) {
     }
 })
 document.addEventListener("mousedown", function (e) {
-    if (e.target.localName == "input" || fClass(e.target, "toggle") || fClass(e.target, "bg-image")) {
+    if (e.target.localName == "input" || hasClass(e.target, "toggle") || hasClass(e.target, "bg-image")) {
         dop = false
     } else {
         x = e.pageX
@@ -326,14 +326,14 @@ document.addEventListener("mousedown", function (e) {
 document.addEventListener("mouseup", function (e) {
     if (dop == true) {
         if (e.pageX - x > 0) {
-            if (fClass(querySelAll(".menu")[0], "tab")) {
+            if (hasClass(querySelAll(".menu")[0], "tab")) {
                 querySelAll(".sub_menu").forEach(i => i.classList.add("tab"));
             } else {
                 querySelAll(".menu").forEach(i => i.classList.add("tab"));
                 idSel("sub_menu").classList.add("toggletab");
             }
         } else if (x - e.pageX > 0) {
-            if (fClass(querySelAll(".sub_menu")[0], "tab")) {
+            if (hasClass(querySelAll(".sub_menu")[0], "tab")) {
                 querySelAll(".sub_menu").forEach(i => i.classList.remove("tab"));
             } else {
                 querySelAll(".menu").forEach(i => i.classList.remove("tab"));

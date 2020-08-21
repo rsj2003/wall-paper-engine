@@ -27,7 +27,7 @@ export function settf(l, c, t) {
     localStorage.setItem(l, [localStorage.getItem(l) === null ? c : localStorage.getItem(l).substr(-2, 2) === ",t" || ",f" ? localStorage.getItem(l).substr(0, localStorage.getItem(l).length - 2) : localStorage.getItem(l), t])
 }
 
-export const fClass = (i, c) => i.classList !== null && i.classList.value.indexOf(c) !== -1;
+export const hasClass = (element, className) => element.classList.contains(className);
 export const idSel = id => document.getElementById(id);
 export const querySel = query => document.querySelector(query);
 export const querySelAll = query => document.querySelectorAll(query);
