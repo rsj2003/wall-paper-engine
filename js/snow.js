@@ -1,8 +1,8 @@
-(function() {
+(function () {
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame ||
-    function(callback) {
-        window.setTimeout(callback, 1000 / 60);
-    };
+        function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+        };
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
@@ -13,11 +13,11 @@ var flakes = [],
     flakeCount = 5000,
     mX = -10000,
     mY = -10000,
-    snowSpeed=localStorage.getItem("snowSpeed")==null?1.5:localStorage.getItem("snowSpeed"),
+    snowSpeed = localStorage.getItem("snowSpeed") == null ? 1.5 : localStorage.getItem("snowSpeed"),
     mouseMoveR
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 function snow() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -54,7 +54,7 @@ function snow() {
         ctx.fillStyle = "rgba(255,255,255," + flake.opacity + ")";
         flake.y += flake.velY;
         flake.x += flake.velX;
-            
+
         if (flake.y >= canvas.height || flake.y <= 0) {
             reset(flake);
         }
@@ -109,12 +109,12 @@ function init() {
 //     mX = e.clientX,
 //     mY = e.clientY
 // });
-document.addEventListener("mousemove",e => {
+document.addEventListener("mousemove", e => {
     mX = e.clientX,
-    mY = e.clientY
+        mY = e.clientY
 });
 
-window.addEventListener("resize",function(){
+window.addEventListener("resize", function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 })
@@ -122,62 +122,62 @@ window.addEventListener("resize",function(){
 init();
 
 function snow_js() {
-    flakeCount=2000
+    flakeCount = 2000
     idSel("snow").style.display = "block";
-    idSel("snow_cnt").addEventListener("input",e => {
-        if(e.target.value>5000){
+    idSel("snow_cnt").addEventListener("input", e => {
+        if (e.target.value > 5000) {
             idSel("snow_cnt").value = 5000;
             idSel("snow_cnt_ran").value = 5000;
-            flakeCount=5000
+            flakeCount = 5000
             // localStorage.setItem("flakeCount",5000)
-            localStorage.setItem("flakeCount",[5000,localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
-        }else{
+            localStorage.setItem("flakeCount", [5000, localStorage.getItem("flakeCount") == null ? "t" : localStorage.getItem("flakeCount").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("flakeCount").substr(-1, 1) : "t"])
+        } else {
             idSel("snow_cnt_ran").value = e.target.value;
-            flakeCount=e.target.value
+            flakeCount = e.target.value
             // localStorage.setItem("flakeCount",e.target.value)
-            localStorage.setItem("flakeCount",[e.target.value,localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
+            localStorage.setItem("flakeCount", [e.target.value, localStorage.getItem("flakeCount") == null ? "t" : localStorage.getItem("flakeCount").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("flakeCount").substr(-1, 1) : "t"])
         }
     })
-    idSel("snow_cnt_ran").addEventListener("input",e => {
+    idSel("snow_cnt_ran").addEventListener("input", e => {
         idSel("snow_cnt").value = e.target.value;
-        flakeCount=e.target.value
+        flakeCount = e.target.value
         // localStorage.setItem("flakeCount",e.target.value)
-        localStorage.setItem("flakeCount",[e.target.value,localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
+        localStorage.setItem("flakeCount", [e.target.value, localStorage.getItem("flakeCount") == null ? "t" : localStorage.getItem("flakeCount").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("flakeCount").substr(-1, 1) : "t"])
     })
-    idSel("snow_speed").addEventListener("input",e => {
-        if(e.target.value<0.5){
+    idSel("snow_speed").addEventListener("input", e => {
+        if (e.target.value < 0.5) {
             idSel("snow_speed").value = 0.5;
             idSel("snow_speed_ran").value = 0.5;
-            snowSpeed=0.5
+            snowSpeed = 0.5
             snow_speed_reset()
-            localStorage.setItem("snowSpeed",0.5)
-        }else{
+            localStorage.setItem("snowSpeed", 0.5)
+        } else {
             idSel("snow_speed_ran").value = e.target.value;
-            snowSpeed=e.target.value
+            snowSpeed = e.target.value
             snow_speed_reset()
-            localStorage.setItem("snowSpeed",e.target.value)
+            localStorage.setItem("snowSpeed", e.target.value)
         }
     })
-    idSel("snow_speed_ran").addEventListener("input",e => {
+    idSel("snow_speed_ran").addEventListener("input", e => {
         idSel("snow_speed").value = e.target.value;
-        snowSpeed=e.target.value
+        snowSpeed = e.target.value
         snow_speed_reset()
-        localStorage.setItem("snowSpeed",e.target.value)
+        localStorage.setItem("snowSpeed", e.target.value)
     })
-    idSel("snow_mouse").addEventListener("input",e => {
+    idSel("snow_mouse").addEventListener("input", e => {
         idSel("snow_mouse_ran").value = e.target.value;
-        mouseMoveR=e.target.value
-        localStorage.setItem("mouseMoveR",e.target.value)
+        mouseMoveR = e.target.value
+        localStorage.setItem("mouseMoveR", e.target.value)
     })
-    idSel("snow_mouse_ran").addEventListener("input",e => {
+    idSel("snow_mouse_ran").addEventListener("input", e => {
         idSel("snow_mouse").value = e.target.value;
-        mouseMoveR=e.target.value
-        localStorage.setItem("mouseMoveR",e.target.value)
+        mouseMoveR = e.target.value
+        localStorage.setItem("mouseMoveR", e.target.value)
     })
 }
 
 function snow_speed_reset() {
     flakes.forEach(f => {
-        f.speed  = (Math.random() * snowSpeed) + (snowSpeed / 2);
+        f.speed = (Math.random() * snowSpeed) + (snowSpeed / 2);
     })
 }
