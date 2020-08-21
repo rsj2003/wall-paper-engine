@@ -1,10 +1,10 @@
 import localStorage from './localStorage';
 import storage from './storage';
-import { idSel, querySel, querySelAll } from "./utils";
+import { querySel, querySelAll } from "./utils";
 import { ColorService } from "./services";
 
-var hexcl, time = new Date(), flsp, bltf, bg, x, dop = true;
-let winw = window.innerWidth, winh = window.innerHeight;
+let time = new Date(), flsp, bltf, bg, x, dop = true;
+const winw = window.innerWidth, winh = window.innerHeight;
 window.onload = e => {
     snow_js();
     local();
@@ -66,77 +66,76 @@ window.onload = e => {
         })
     })
     // menu
-    let input_event = "input";
-    idSel("text-color").addEventListener("input", e => {
-        idSel("text-color-text").value = e.target.value;
+    querySel("#text-color").addEventListener("input", e => {
+        querySel("#text-color-text").value = e.target.value;
         querySelAll(".time").forEach(i => i.style.color = e.target.value);
         localStorage.setItem("text-color", [e.target.value, localStorage.getItem("text-color") == null ? "t" : localStorage.getItem("text-color").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("text-color").substr(-1, 1) : "t"]);
     })
-    idSel("text-color-text").addEventListener("input", e => {
-        hexcor(e.target.value, idSel("text-color"), "text-color");
-        querySelAll(".time").forEach(i => i.style.color = hexcl);
+    querySel("#text-color-text").addEventListener("input", e => {
+        ColorService.setHexColor(e.target.value, querySel("#text-color"), "text-color");
+        querySelAll(".time").forEach(i => i.style.color = ColorService.getColor());
     })
-    idSel("text-color-text").addEventListener("blur", e => {
-        idSel("text-color-text").value = idSel("text-color").value;
+    querySel("#text-color-text").addEventListener("blur", e => {
+        querySel("#text-color-text").value = querySel("#text-color").value;
     })
-    idSel("text-shadow").addEventListener("input", e => {
-        idSel("text-shadow-text").value = e.target.value;
+    querySel("#text-shadow").addEventListener("input", e => {
+        querySel("#text-shadow-text").value = e.target.value;
         querySelAll(".time").forEach(i => i.style.textShadow = `${e.target.value} 0 0 5px,${e.target.value} 0 0 5px,${e.target.value} 0 0 5px`);
         localStorage.setItem("text-shadow", [e.target.value, localStorage.getItem("text-shadow") == null ? "t" : localStorage.getItem("text-shadow").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("text-shadow").substr(-1, 1) : "t"])
     })
-    idSel("text-shadow-text").addEventListener("input", e => {
-        hexcor(e.target.value, idSel("text-shadow"), "text-shadow")
-        querySelAll(".time").forEach(i => i.style.textShadow = `${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`);
+    querySel("#text-shadow-text").addEventListener("input", e => {
+        ColorService.setHexColor(e.target.value, querySel("#text-shadow"), "text-shadow")
+        querySelAll(".time").forEach(i => i.style.textShadow = `${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px`);
     })
-    idSel("text-shadow-text").addEventListener("blur", e => {
-        idSel("text-shadow-text").value = idSel("text-shadow").value;
+    querySel("#text-shadow-text").addEventListener("blur", e => {
+        querySel("#text-shadow-text").value = querySel("#text-shadow").value;
     })
-    idSel("circle-color").addEventListener("input", e => {
-        idSel("circle-color-text").value = e.target.value;
+    querySel("#circle-color").addEventListener("input", e => {
+        querySel("#circle-color-text").value = e.target.value;
         querySelAll(".c_line").forEach(i => i.style.borderColor = e.target.value);
         localStorage.setItem("circle-color", [e.target.value, localStorage.getItem("circle-color") == null ? "t" : localStorage.getItem("circle-color").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("circle-color").substr(-1, 1) : "t"])
     })
-    idSel("circle-color-text").addEventListener("input", e => {
-        hexcor(e.target.value, idSel("circle-color"), "circle-color")
-        querySelAll(".c_line").forEach(i => i.style.borderColor = hexcl);
+    querySel("#circle-color-text").addEventListener("input", e => {
+        ColorService.setHexColor(e.target.value, querySel("#circle-color"), "circle-color")
+        querySelAll(".c_line").forEach(i => i.style.borderColor = ColorService.getColor());
     })
-    idSel("circle-color-text").addEventListener("blur", e => {
-        idSel("circle-color-text").value = idSel("circle-color").value;
+    querySel("#circle-color-text").addEventListener("blur", e => {
+        querySel("#circle-color-text").value = querySel("#circle-color").value;
     })
-    idSel("circle-shadow").addEventListener("input", e => {
-        idSel("circle-shadow-text").value = e.target.value;
+    querySel("#circle-shadow").addEventListener("input", e => {
+        querySel("#circle-shadow-text").value = e.target.value;
         querySelAll(".c_line").forEach(i => i.style.boxShadow = `${e.target.value} 0 0 20px 5px,${e.target.value} 0 0 20px 5px inset`);
         localStorage.setItem("circle-shadow", [e.target.value, localStorage.getItem("circle-shadow") == null ? "t" : localStorage.getItem("circle-shadow").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("circle-shadow").substr(-1, 1) : "t"])
     })
-    idSel("circle-shadow-text").addEventListener("input", e => {
-        hexcor(e.target.value, idSel("circle-shadow"), "circle-shadow")
-        querySelAll(".c_line").forEach(i => i.style.boxShadow = `${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`);
+    querySel("#circle-shadow-text").addEventListener("input", e => {
+        ColorService.setHexColor(e.target.value, querySel("#circle-shadow"), "circle-shadow")
+        querySelAll(".c_line").forEach(i => i.style.boxShadow = `${ColorService.getColor()} 0 0 20px 5px,${ColorService.getColor()} 0 0 20px 5px inset`);
     })
-    idSel("circle-shadow-text").addEventListener("blur", e => {
-        idSel("circle-shadow-text").value = idSel("circle-shadow").value
+    querySel("#circle-shadow-text").addEventListener("blur", e => {
+        querySel("#circle-shadow-text").value = querySel("#circle-shadow").value
     })
 
-    idSel("flickers_speed").addEventListener("input", e => {
-        idSel("flickers_speed_ran").value = e.target.value;
+    querySel("#flickers_speed").addEventListener("input", e => {
+        querySel("#flickers_speed_ran").value = e.target.value;
         flsp = e.target.value;
         localStorage.setItem("flsp", [flsp, localStorage.getItem("flsp") == null ? "t" : localStorage.getItem("flsp").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("flsp").substr(-1, 1) : "t"])
     })
-    idSel("flickers_speed_ran").addEventListener("input", e => {
-        idSel("flickers_speed").value = e.target.value;
+    querySel("#flickers_speed_ran").addEventListener("input", e => {
+        querySel("#flickers_speed").value = e.target.value;
         flsp = e.target.value;
         localStorage.setItem("flsp", [flsp, localStorage.getItem("flsp") == null ? "t" : localStorage.getItem("flsp").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("flsp").substr(-1, 1) : "t"])
     })
-    idSel("circle_wh").addEventListener("input", e => {
+    querySel("#circle_wh").addEventListener("input", e => {
         if (e.target.value < 0) {
-            idSel("circle_wh").value = 0;
-            idSel("circle_wh_ran").value = 0;
+            querySel("#circle_wh").value = 0;
+            querySel("#circle_wh_ran").value = 0;
             querySelAll(".c_line").forEach(i => {
                 i.style.width = `0px`;
                 i.style.height = `0px`;
             });
             localStorage.setItem("circle-wh", 0);
         } else {
-            idSel("circle_wh_ran").value = e.target.value;
+            querySel("#circle_wh_ran").value = e.target.value;
             querySelAll(".c_line").forEach(i => {
                 i.style.width = `${e.target.value}px`;
                 i.style.height = `${e.target.value}px`;
@@ -144,42 +143,42 @@ window.onload = e => {
             localStorage.setItem("circle-wh", e.target.value);
         }
     })
-    idSel("circle_wh_ran").addEventListener("input", e => {
-        idSel("circle_wh").value = e.target.value;
+    querySel("#circle_wh_ran").addEventListener("input", e => {
+        querySel("#circle_wh").value = e.target.value;
         querySelAll(".c_line").forEach(i => {
             i.style.width = `${e.target.value}px`;
             i.style.height = `${e.target.value}px`;
         });
         localStorage.setItem("circle-wh", e.target.value);
     })
-    idSel("bg_blur").addEventListener("input", e => {
+    querySel("#bg_blur").addEventListener("input", e => {
         if (e.target.value < 0) {
-            idSel("bg_blur").value = 0;
-            idSel("bg_blur_ran").value = 0;
+            querySel("#bg_blur").value = 0;
+            querySel("#bg_blur_ran").value = 0;
             querySelAll(".c_line").forEach(i => {
                 i.style.width = `0px`;
                 i.style.height = `0px`;
             });
             localStorage.setItem("bg-blur", 0);
         } else {
-            idSel("bg_blur_ran").value = e.target.value;
+            querySel("#bg_blur_ran").value = e.target.value;
             querySelAll(".bg").forEach(i => i.style.filter = `blur(${e.target.value}px)`);
             localStorage.setItem("bg-blur", e.target.value)
         }
     })
-    idSel("bg_blur_ran").addEventListener("input", e => {
-        idSel("bg_blur").value = e.target.value;
+    querySel("#bg_blur_ran").addEventListener("input", e => {
+        querySel("#bg_blur").value = e.target.value;
         querySelAll(".bg").forEach(i => i.style.filter = `blur(${e.target.value}px)`);
         localStorage.setItem("bg-blur", e.target.value)
     })
-    idSel("bg-color").addEventListener("input", e => {
-        idSel("bg-color-text").value = e.target.value;
+    querySel("#bg-color").addEventListener("input", e => {
+        querySel("#bg-color-text").value = e.target.value;
         querySel("body").style.backgroundColor = e.target.value;
         localStorage.setItem("bg-color", [e.target.value, localStorage.getItem("bg-color") == null ? "t" : localStorage.getItem("bg-color").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("bg-color").substr(-1, 1) : "t"])
     })
-    idSel("bg-color-text").addEventListener("input", e => {
-        hexcor(e.target.value, idSel("bg-color"), "bg-color")
-        querySel("body").style.backgroundColor = hexcl;
+    querySel("#bg-color-text").addEventListener("input", e => {
+        ColorService.setHexColor(e.target.value, querySel("#bg-color"), "bg-color")
+        querySel("body").style.backgroundColor = ColorService.getColor();
     })
     querySelAll(".bg-img").forEach(i => i.addEventListener("click", e => {
         bg = idx(e.target);
@@ -192,7 +191,7 @@ window.onload = e => {
             e.target.classList.remove("toggle_false");
             switch (idx(e.target)) {
                 case 0:
-                    idSel("snow").style.display = "block";
+                    querySel("#snow").style.display = "block";
                     storage.toggle("flakeCount", 2000, "t")
                     break
                 case 7:
@@ -200,8 +199,8 @@ window.onload = e => {
                     storage.toggle("text-color", "#ffffff", "t")
                     break
                 case 10:
-                    hexcl = idSel("text-shadow").value
-                    querySelAll(".time").forEach(i => i.style.textShadow = `${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`);
+                    ColorService.setColor(querySel("#text-shadow").value);
+                    querySelAll(".time").forEach(i => i.style.textShadow = `${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px`);
                     storage.toggle("text-shadow", "#77ffbb", "t")
                     break
                 case 12:
@@ -216,8 +215,8 @@ window.onload = e => {
                     storage.toggle("circle-color", "#ffffff", "t")
                     break
                 case 19:
-                    hexcl = idSel("circle-shadow").value
-                    querySelAll(".c_line").forEach(i => i.style.boxShadow = `${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`);
+                    ColorService.setColor(querySel("#circle-shadow").value);
+                    querySelAll(".c_line").forEach(i => i.style.boxShadow = `${ColorService.getColor()} 0 0 20px 5px,${ColorService.getColor()} 0 0 20px 5px inset`);
                     storage.toggle("circle-shadow", "#77ffbb", "t")
                     break
                 case 21:
@@ -229,7 +228,7 @@ window.onload = e => {
             e.target.classList.add("toggle_false");
             switch (idx(e.target)) {
                 case 0:
-                    idSel("snow").style.display = "none";
+                    querySel("#snow").style.display = "none";
                     storage.toggle("flakeCount", 2000, "f")
                     break
                 case 7:
@@ -293,7 +292,7 @@ window.onload = e => {
             querySelAll(".bg").forEach(i => i.style.filter = `blur(5px)`);
             querySelAll(".toggle").forEach(i => i.classList.remove("toggle_false"));
             querySelAll(".flickers_t").forEach(i => i.classList.add("toggle_false"));
-            idSel("snow").style.display = `block`;
+            querySel("#snow").style.display = `block`;
             querySelAll(".time").forEach(i => i.style.display = `block`);
             querySelAll(".time").forEach(i => i.classList.add("nofl"));
             querySelAll(".c_line").forEach(i => i.style.display = `block`);
@@ -315,7 +314,7 @@ document.addEventListener("keydown", function (key) {
     if (key.keyCode == 9) {
         key.preventDefault();
         querySelAll(".menu").forEach(i => i.classList.toggle("tab"));
-        idSel("sub_menu").classList.toggle("toggletab");
+        querySel("#sub_menu").classList.toggle("toggletab");
         querySelAll(".sub_menu").forEach(i => i.classList.remove("tab"));
     }
 })
@@ -333,14 +332,14 @@ document.addEventListener("mouseup", function (e) {
                 querySelAll(".sub_menu").forEach(i => i.classList.add("tab"));
             } else {
                 querySelAll(".menu").forEach(i => i.classList.add("tab"));
-                idSel("sub_menu").classList.add("toggletab");
+                querySel("#sub_menu").classList.add("toggletab");
             }
         } else if (x - e.pageX > 0) {
             if (hasClass(querySelAll(".sub_menu")[0], "tab")) {
                 querySelAll(".sub_menu").forEach(i => i.classList.remove("tab"));
             } else {
                 querySelAll(".menu").forEach(i => i.classList.remove("tab"));
-                idSel("sub_menu").classList.remove("toggletab");
+                querySel("#sub_menu").classList.remove("toggletab");
             }
         }
     } else {
