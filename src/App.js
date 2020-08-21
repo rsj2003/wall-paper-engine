@@ -1,13 +1,15 @@
 import localStorage from './localStorage';
 import storage from './storage';
 import { querySel, querySelAll } from "./utils";
-import { ColorService } from "./services";
+import { StyleService } from "./services";
 
 let time = new Date(), flsp, bltf, bg, x, dop = true;
 const winw = window.innerWidth, winh = window.innerHeight;
 window.onload = e => {
+
     snow_js();
     local();
+
     window.scrollTo(0, 1);
     const
         clock_sp = querySelAll(".clock>span"),
@@ -72,8 +74,8 @@ window.onload = e => {
         localStorage.setItem("text-color", [e.target.value, localStorage.getItem("text-color") == null ? "t" : localStorage.getItem("text-color").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("text-color").substr(-1, 1) : "t"]);
     })
     querySel("#text-color-text").addEventListener("input", e => {
-        ColorService.setHexColor(e.target.value, querySel("#text-color"), "text-color");
-        querySelAll(".time").forEach(i => i.style.color = ColorService.getColor());
+        StyleService.setHexColor(e.target.value, querySel("#text-color"), "text-color");
+        querySelAll(".time").forEach(i => i.style.color = StyleService.get());
     })
     querySel("#text-color-text").addEventListener("blur", e => {
         querySel("#text-color-text").value = querySel("#text-color").value;
@@ -84,8 +86,8 @@ window.onload = e => {
         localStorage.setItem("text-shadow", [e.target.value, localStorage.getItem("text-shadow") == null ? "t" : localStorage.getItem("text-shadow").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("text-shadow").substr(-1, 1) : "t"])
     })
     querySel("#text-shadow-text").addEventListener("input", e => {
-        ColorService.setHexColor(e.target.value, querySel("#text-shadow"), "text-shadow")
-        querySelAll(".time").forEach(i => i.style.textShadow = `${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px`);
+        StyleService.setHexColor(e.target.value, querySel("#text-shadow"), "text-shadow")
+        querySelAll(".time").forEach(i => i.style.textShadow = `${StyleService.get()} 0 0 5px,${StyleService.get()} 0 0 5px,${StyleService.get()} 0 0 5px`);
     })
     querySel("#text-shadow-text").addEventListener("blur", e => {
         querySel("#text-shadow-text").value = querySel("#text-shadow").value;
@@ -96,8 +98,8 @@ window.onload = e => {
         localStorage.setItem("circle-color", [e.target.value, localStorage.getItem("circle-color") == null ? "t" : localStorage.getItem("circle-color").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("circle-color").substr(-1, 1) : "t"])
     })
     querySel("#circle-color-text").addEventListener("input", e => {
-        ColorService.setHexColor(e.target.value, querySel("#circle-color"), "circle-color")
-        querySelAll(".c_line").forEach(i => i.style.borderColor = ColorService.getColor());
+        StyleService.setHexColor(e.target.value, querySel("#circle-color"), "circle-color")
+        querySelAll(".c_line").forEach(i => i.style.borderColor = StyleService.get());
     })
     querySel("#circle-color-text").addEventListener("blur", e => {
         querySel("#circle-color-text").value = querySel("#circle-color").value;
@@ -108,8 +110,8 @@ window.onload = e => {
         localStorage.setItem("circle-shadow", [e.target.value, localStorage.getItem("circle-shadow") == null ? "t" : localStorage.getItem("circle-shadow").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("circle-shadow").substr(-1, 1) : "t"])
     })
     querySel("#circle-shadow-text").addEventListener("input", e => {
-        ColorService.setHexColor(e.target.value, querySel("#circle-shadow"), "circle-shadow")
-        querySelAll(".c_line").forEach(i => i.style.boxShadow = `${ColorService.getColor()} 0 0 20px 5px,${ColorService.getColor()} 0 0 20px 5px inset`);
+        StyleService.setHexColor(e.target.value, querySel("#circle-shadow"), "circle-shadow")
+        querySelAll(".c_line").forEach(i => i.style.boxShadow = `${StyleService.get()} 0 0 20px 5px,${StyleService.get()} 0 0 20px 5px inset`);
     })
     querySel("#circle-shadow-text").addEventListener("blur", e => {
         querySel("#circle-shadow-text").value = querySel("#circle-shadow").value
@@ -177,8 +179,8 @@ window.onload = e => {
         localStorage.setItem("bg-color", [e.target.value, localStorage.getItem("bg-color") == null ? "t" : localStorage.getItem("bg-color").substr(-2, 2) == ",t" || ",f" ? localStorage.getItem("bg-color").substr(-1, 1) : "t"])
     })
     querySel("#bg-color-text").addEventListener("input", e => {
-        ColorService.setHexColor(e.target.value, querySel("#bg-color"), "bg-color")
-        querySel("body").style.backgroundColor = ColorService.getColor();
+        StyleService.setHexColor(e.target.value, querySel("#bg-color"), "bg-color")
+        querySel("body").style.backgroundColor = StyleService.get();
     })
     querySelAll(".bg-img").forEach(i => i.addEventListener("click", e => {
         bg = idx(e.target);
@@ -199,8 +201,8 @@ window.onload = e => {
                     storage.toggle("text-color", "#ffffff", "t")
                     break
                 case 10:
-                    ColorService.setColor(querySel("#text-shadow").value);
-                    querySelAll(".time").forEach(i => i.style.textShadow = `${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px,${ColorService.getColor()} 0 0 5px`);
+                    StyleService.setColor(querySel("#text-shadow").value);
+                    querySelAll(".time").forEach(i => i.style.textShadow = `${StyleService.get()} 0 0 5px,${StyleService.get()} 0 0 5px,${StyleService.get()} 0 0 5px`);
                     storage.toggle("text-shadow", "#77ffbb", "t")
                     break
                 case 12:
@@ -215,8 +217,8 @@ window.onload = e => {
                     storage.toggle("circle-color", "#ffffff", "t")
                     break
                 case 19:
-                    ColorService.setColor(querySel("#circle-shadow").value);
-                    querySelAll(".c_line").forEach(i => i.style.boxShadow = `${ColorService.getColor()} 0 0 20px 5px,${ColorService.getColor()} 0 0 20px 5px inset`);
+                    StyleService.setColor(querySel("#circle-shadow").value);
+                    querySelAll(".c_line").forEach(i => i.style.boxShadow = `${StyleService.get()} 0 0 20px 5px,${StyleService.get()} 0 0 20px 5px inset`);
                     storage.toggle("circle-shadow", "#77ffbb", "t")
                     break
                 case 21:
