@@ -8,7 +8,7 @@
 
 
 var flakes = [],
-    canvas = document.getElementById("rain"),
+    canvas = document.getElementById("snow"),
     ctx = canvas.getContext("2d"),
     flakeCount = 5000,
     mX = -10000,
@@ -109,7 +109,7 @@ function init() {
 //     mX = e.clientX,
 //     mY = e.clientY
 // });
-$(document).on("mousemove", function(e) {
+document.addEventListener("mousemove",e => {
     mX = e.clientX,
     mY = e.clientY
 });
@@ -121,54 +121,63 @@ window.addEventListener("resize",function(){
 
 init();
 
-$(document).ready(function(){
+function snow_js() {
     flakeCount=2000
-    $("#rain").css({display:"block"})
-    $("#snow_cnt").on("change keyup paste mouseup",function(){
-        if($(this).val()>5000){
-            $("#snow_cnt").val(5000)
-            $("#snow_cnt_ran").val(5000)
+    idSel("snow").style.display = "block";
+    idSel("snow_cnt").addEventListener("input",e => {
+        if(e.target.value>5000){
+            idSel("snow_cnt").value = 5000;
+            idSel("snow_cnt_ran").value = 5000;
             flakeCount=5000
             // localStorage.setItem("flakeCount",5000)
             localStorage.setItem("flakeCount",[5000,localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
         }else{
-            $("#snow_cnt_ran").val($(this).val())
-            flakeCount=$(this).val()
-            // localStorage.setItem("flakeCount",$(this).val())
-            localStorage.setItem("flakeCount",[$(this).val(),localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
+            idSel("snow_cnt_ran").value = e.target.value;
+            flakeCount=e.target.value
+            // localStorage.setItem("flakeCount",e.target.value)
+            localStorage.setItem("flakeCount",[e.target.value,localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
         }
     })
-    $("#snow_cnt_ran").on("change keyup mouseup",function(){
-        $("#snow_cnt").val($(this).val())
-        flakeCount=$(this).val()
-        // localStorage.setItem("flakeCount",$(this).val())
-        localStorage.setItem("flakeCount",[$(this).val(),localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
+    idSel("snow_cnt_ran").addEventListener("input",e => {
+        idSel("snow_cnt").value = e.target.value;
+        flakeCount=e.target.value
+        // localStorage.setItem("flakeCount",e.target.value)
+        localStorage.setItem("flakeCount",[e.target.value,localStorage.getItem("flakeCount")==null?"t":localStorage.getItem("flakeCount").substr(-2,2)==",t"||",f"?localStorage.getItem("flakeCount").substr(-1,1):"t"])
     })
-    $("#snow_speed").on("change keyup paste mouseup",function(){
-        if($(this).val()<0.5){
-            $("#snow_speed").val(0.5)
-            $("#snow_speed_ran").val(0.5)
+    idSel("snow_speed").addEventListener("input",e => {
+        if(e.target.value<0.5){
+            idSel("snow_speed").value = 0.5;
+            idSel("snow_speed_ran").value = 0.5;
             snowSpeed=0.5
+            snow_speed_reset()
             localStorage.setItem("snowSpeed",0.5)
         }else{
-            $("#snow_speed_ran").val($(this).val())
-            snowSpeed=$(this).val()
-            localStorage.setItem("snowSpeed",$(this).val())
+            idSel("snow_speed_ran").value = e.target.value;
+            snowSpeed=e.target.value
+            snow_speed_reset()
+            localStorage.setItem("snowSpeed",e.target.value)
         }
     })
-    $("#snow_speed_ran").on("change keyup paste mouseup",function(){
-        $("#snow_speed").val($(this).val())
-        snowSpeed=$(this).val()
-        localStorage.setItem("snowSpeed",$(this).val())
+    idSel("snow_speed_ran").addEventListener("input",e => {
+        idSel("snow_speed").value = e.target.value;
+        snowSpeed=e.target.value
+        snow_speed_reset()
+        localStorage.setItem("snowSpeed",e.target.value)
     })
-    $("#snow_mouse").on("change keyup paste mouseup",function(){
-        $("#snow_mouse_ran").val($(this).val())
-        mouseMoveR=$(this).val()
-        localStorage.setItem("mouseMoveR",$(this).val())
+    idSel("snow_mouse").addEventListener("input",e => {
+        idSel("snow_mouse_ran").value = e.target.value;
+        mouseMoveR=e.target.value
+        localStorage.setItem("mouseMoveR",e.target.value)
     })
-    $("#snow_mouse_ran").on("change keyup paste mouseup",function(){
-        $("#snow_mouse").val($(this).val())
-        mouseMoveR=$(this).val()
-        localStorage.setItem("mouseMoveR",$(this).val())
+    idSel("snow_mouse_ran").addEventListener("input",e => {
+        idSel("snow_mouse").value = e.target.value;
+        mouseMoveR=e.target.value
+        localStorage.setItem("mouseMoveR",e.target.value)
     })
-})
+}
+
+function snow_speed_reset() {
+    flakes.forEach(f => {
+        f.speed  = (Math.random() * snowSpeed) + (snowSpeed / 2);
+    })
+}

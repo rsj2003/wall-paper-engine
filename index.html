@@ -7,7 +7,7 @@
     <title>wallpaper engin</title>
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/common.css">
-    <script src="./js/jquery.js"></script>
+    <!-- <script src="./js/jquery.js"></script> -->
     <script src="./js/common.js"></script>
 </head>
 <body>
@@ -41,10 +41,10 @@
             <input type="text" id="text-shadow-text" value="#77ffbb">
             <input type="color" id="text-shadow" value="#77ffbb">
         </div>
-        <h3 class="mt1 blink_t toggle toggle_false">blink-time</h3>
+        <h3 class="mt1 flickers_t toggle toggle_false">flickers-time</h3>
         <div class="num">
-            <input type="range" id="blink_speed_ran" min="1" max="50" value="10" step="0.1">
-            <input type="number" id="blink_speed" min="1" value="10" step="0.1">
+            <input type="range" id="flickers_speed_ran" min="1" max="50" value="10" step="0.1">
+            <input type="number" id="flickers_speed" min="1" value="10" step="0.1">
         </div>
         <h2 class="circle_t toggle">circle</h2>
         <h3>size</h3>
@@ -90,12 +90,12 @@
         <div class="circle">
             <div class="time nobl">
                 <div class="clock"><span></span><span>:</span><span></span><span>:</span><span></span></div>
-                <div class="date"><span></span><span class="djb">-</span class="djb"><span></span><span class="djb">-</span><span></span></div>
+                <div class="date"><span></span><span class="djb">-</span><span></span><span class="djb">-</span><span></span></div>
             </div>
             <div class="c_line"></div>
         </div>
     </div>
-    <canvas id="rain"></canvas>
+    <canvas id="snow"></canvas>
 </body>
 <script src="./js/snow.js"></script>
 <script src="./js/localStorage.js"></script>

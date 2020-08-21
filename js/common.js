@@ -1,281 +1,338 @@
-var hexcl,time=new Date(),blsp,bltf,bg
-$(document).ready(function(){
-    // console.log(time)
-    setInterval(function(){
-        time=new Date()
-        $(".clock>span").eq(0).html(num(time.getHours(),2))
-        $(".clock>span").eq(2).html(num(time.getMinutes(),2))
-        $(".clock>span").eq(4).html(num(time.getSeconds(),2))
-        $(".date>span").eq(0).html(time.getFullYear())
-        $(".date>span").eq(2).html(num(time.getMonth()+1,2))
-        $(".date>span").eq(4).html(num(time.getDate(),2))
+var hexcl,time=new Date(),flsp,bltf,bg,x,dop=true;
+let winw=window.innerWidth,winh=window.innerHeight;
+window.onload = e => {
+    snow_js();
+    local();
+    window.scrollTo(0,1);
+    let
+    clock_sp = querySelAll(".clock>span"),
+    date_sp = querySelAll(".date>span"),
+    time_sp = querySelAll(".time span");
+    setInterval(e => {
+        time=new Date();
+        clock_sp[0].innerHTML = num(time.getHours(),2);
+        clock_sp[2].innerHTML = num(time.getMinutes(),2);
+        clock_sp[4].innerHTML = num(time.getSeconds(),2);
+        date_sp[0].innerHTML = time.getFullYear();
+        date_sp[2].innerHTML = num(time.getMonth()+1,2);
+        date_sp[4].innerHTML = num(time.getDate(),2);
     })
-    setTimeout(function(){
-        $(".alert").animate({"opacity":0},500,function(){
-            $(".alert").css({"display":"none"})
-        })
-    },2000)
+    setTimeout(e => {
+        document.getElementsByClassName("alert")[0].style.transition = "0.5s";
+        document.getElementsByClassName("alert")[0].style.opacity = "0";
+        setTimeout(e=>{document.getElementsByClassName("alert")[0].style.display = "none";},500);
+    },2000);
     function setime(){
         var tms=Math.floor(Math.random()*10)
-        if($(".time span").eq(tms).is(".cl_sp")){
+        if(time_sp[tms].classList == ".cl_sp"){
             setime()
             return
         }
-        if($(".time").is(".nobl"))return
-        setTimeout(function(){
-            $(".time span").eq(tms).css({"opacity":"0.5"})
-            console.log("sdfsdf")
-            setTimeout(function(){
-                if($(".time span").eq(tms).is(".cl_sp")){
+        if(fClass(document.getElementsByClassName("time")[0],"nofl"))return
+        setTimeout(e => {
+            time_sp[tms].style.opacity = "0.5";
+            setTimeout(e => {
+                if(fClass(time_sp[tms],"cl_sp")){
                     setime()
                     return
                 }
-                $(".time span").eq(tms).css({"opacity":""})
+                time_sp[tms].style.opacity = "";
                 setime()
             },(Math.floor(Math.random()*7)+3)*10)
-        },(Math.floor(Math.random()*(blsp-(blsp/10)))+(blsp/10))*100)
+        },(Math.floor(Math.random()*(flsp-(flsp/10)))+(flsp/10))*100)
     }
     setime()
     setime()
     setime()
-    $(document).on("mousedown",".time span",function(){
-        var tms_cl=$(this)
-        $(tms_cl).css({"opacity":"0.5"}).addClass("cl_sp")
-    })
-    $(document).on("mouseup",function(){
-        $(".cl_sp").css({"opacity":""}).removeClass("cl_sp")
+    time_sp.forEach(i => i.addEventListener("mousedown",e => {
+        i.classList.add("cl_sp");
+        i.style.opacity = "0.5";
+    }))
+    document.addEventListener("mouseup",e => {
+        time_sp.forEach(i => {if(fClass(i,"cl_sp")){
+            i.classList.remove("cl_sp");
+            i.style.opacity = "";
+        }})
     })
     // menu
-    $("#text-color").on("change keyup paste mouseup",function(){
-        $("#text-color-text").val($(this).val())
-        $(".time").css({"color":$(this).val()})
-        localStorage.setItem("text-color",[$(this).val(),localStorage.getItem("text-color")==null?"t":localStorage.getItem("text-color").substr(-2,2)==",t"||",f"?localStorage.getItem("text-color").substr(-1,1):"t"])
+    let input_event = "input";
+    idSel("text-color").addEventListener("input",e => {
+        idSel("text-color-text").value = e.target.value;
+        querySelAll(".time").forEach(i => i.style.color = e.target.value);
+        localStorage.setItem("text-color",[e.target.value,localStorage.getItem("text-color")==null?"t":localStorage.getItem("text-color").substr(-2,2)==",t"||",f"?localStorage.getItem("text-color").substr(-1,1):"t"]);
     })
-    $("#text-color-text").on("change keyup paste mouseup",function(){
-        hexcor($(this).val(),$("#text-color"),"text-color")
-        $(".time").css({"color":hexcl})
+    idSel("text-color-text").addEventListener("input",e => {
+        hexcor(e.target.value,idSel("text-color"),"text-color");
+        querySelAll(".time").forEach(i => i.style.color = hexcl);
     })
-    $("#text-color-text").on("blur",function(){
-        $("#text-color-text").val($("#text-color").val())
+    idSel("text-color-text").addEventListener("blur",e => {
+        idSel("text-color-text").value = idSel("text-color").value;
     })
-    $("#text-shadow").on("change keyup paste mouseup",function(){
-        $("#text-shadow-text").val($(this).val())
-        $(".time").css({"text-shadow":`${$(this).val()} 0 0 5px,${$(this).val()} 0 0 5px,${$(this).val()} 0 0 5px`})
-        localStorage.setItem("text-shadow",[$(this).val(),localStorage.getItem("text-shadow")==null?"t":localStorage.getItem("text-shadow").substr(-2,2)==",t"||",f"?localStorage.getItem("text-shadow").substr(-1,1):"t"])
+    idSel("text-shadow").addEventListener("input",e => {
+        idSel("text-shadow-text").value = e.target.value;
+        querySelAll(".time").forEach(i => i.style.textShadow = `${e.target.value} 0 0 5px,${e.target.value} 0 0 5px,${e.target.value} 0 0 5px`);
+        localStorage.setItem("text-shadow",[e.target.value,localStorage.getItem("text-shadow")==null?"t":localStorage.getItem("text-shadow").substr(-2,2)==",t"||",f"?localStorage.getItem("text-shadow").substr(-1,1):"t"])
     })
-    $("#text-shadow-text").on("change keyup paste mouseup",function(){
-        hexcor($(this).val(),$("#text-shadow"),"text-shadow")
-        $(".time").css({"text-shadow":`${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`})
+    idSel("text-shadow-text").addEventListener("input",e => {
+        hexcor(e.target.value,idSel("text-shadow"),"text-shadow")
+        querySelAll(".time").forEach(i => i.style.textShadow = `${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`);
     })
-    $("#text-shadow-text").on("blur",function(){
-        $("#text-shadow-text").val($("#text-shadow").val())
+    idSel("text-shadow-text").addEventListener("blur",e => {
+        idSel("text-shadow-text").value = idSel("text-shadow").value;
     })
-    $("#circle-color").on("change keyup paste mouseup",function(){
-        $("#circle-color-text").val($(this).val())
-        $(".c_line").css({"border-color":$(this).val()})
-        localStorage.setItem("circle-color",[$(this).val(),localStorage.getItem("circle-color")==null?"t":localStorage.getItem("circle-color").substr(-2,2)==",t"||",f"?localStorage.getItem("circle-color").substr(-1,1):"t"])
+    idSel("circle-color").addEventListener("input",e => {
+        idSel("circle-color-text").value = e.target.value;
+        querySelAll(".c_line").forEach(i => i.style.borderColor = e.target.value);
+        localStorage.setItem("circle-color",[e.target.value,localStorage.getItem("circle-color")==null?"t":localStorage.getItem("circle-color").substr(-2,2)==",t"||",f"?localStorage.getItem("circle-color").substr(-1,1):"t"])
     })
-    $("#circle-color-text").on("change keyup paste mouseup",function(){
-        hexcor($(this).val(),$("#circle-color"),"circle-color")
-        $(".c_line").css({"border-color":hexcl})
+    idSel("circle-color-text").addEventListener("input",e => {
+        hexcor(e.target.value,idSel("circle-color"),"circle-color")
+        querySelAll(".c_line").forEach(i => i.style.borderColor = hexcl);
     })
-    $("#circle-color-text").on("blur",function(){
-        $("#circle-color-text").val($("#circle-color").val())
+    idSel("circle-color-text").addEventListener("blur",e => {
+        idSel("circle-color-text").value = idSel("circle-color").value;
     })
-    $("#circle-shadow").on("change keyup paste mouseup",function(){
-        $("#circle-shadow-text").val($(this).val())
-        $(".c_line").css({"box-shadow":`${$(this).val()} 0 0 20px 5px,${$(this).val()} 0 0 20px 5px inset`})
-        localStorage.setItem("circle-shadow",[$(this).val(),localStorage.getItem("circle-shadow")==null?"t":localStorage.getItem("circle-shadow").substr(-2,2)==",t"||",f"?localStorage.getItem("circle-shadow").substr(-1,1):"t"])
+    idSel("circle-shadow").addEventListener("input",e => {
+        idSel("circle-shadow-text").value = e.target.value;
+        querySelAll(".c_line").forEach(i => i.style.boxShadow = `${e.target.value} 0 0 20px 5px,${e.target.value} 0 0 20px 5px inset`);
+        localStorage.setItem("circle-shadow",[e.target.value,localStorage.getItem("circle-shadow")==null?"t":localStorage.getItem("circle-shadow").substr(-2,2)==",t"||",f"?localStorage.getItem("circle-shadow").substr(-1,1):"t"])
     })
-    $("#circle-shadow-text").on("change keyup paste mouseup",function(){
-        hexcor($(this).val(),$("#circle-shadow"),"circle-shadow")
-        $(".c_line").css({"box-shadow":`${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`})
+    idSel("circle-shadow-text").addEventListener("input",e => {
+        hexcor(e.target.value,idSel("circle-shadow"),"circle-shadow")
+        querySelAll(".c_line").forEach(i => i.style.boxShadow = `${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`);
     })
-    $("#circle-shadow-text").on("blur",function(){
-        $("#circle-shadow-text").val($("#circle-shadow").val())
+    idSel("circle-shadow-text").addEventListener("blur",e => {
+        idSel("circle-shadow-text").value = idSel("circle-shadow").value
     })
-    
-    $("#blink_speed").on("change keyup paste mouseup",function(){
-        $("#blink_speed_ran").val($(this).val())
-        blsp=$(this).val()
-        localStorage.setItem("blsp",[blsp,localStorage.getItem("blsp")==null?"t":localStorage.getItem("blsp").substr(-2,2)==",t"||",f"?localStorage.getItem("blsp").substr(-1,1):"t"])
+
+    idSel("flickers_speed").addEventListener("input",e => {
+        idSel("flickers_speed_ran").value = e.target.value;
+        flsp=e.target.value;
+        localStorage.setItem("flsp",[flsp,localStorage.getItem("flsp")==null?"t":localStorage.getItem("flsp").substr(-2,2)==",t"||",f"?localStorage.getItem("flsp").substr(-1,1):"t"])
     })
-    $("#blink_speed_ran").on("change keyup paste mouseup",function(){
-        $("#blink_speed").val($(this).val())
-        blsp=$(this).val()
-        localStorage.setItem("blsp",[blsp,localStorage.getItem("blsp")==null?"t":localStorage.getItem("blsp").substr(-2,2)==",t"||",f"?localStorage.getItem("blsp").substr(-1,1):"t"])
+    idSel("flickers_speed_ran").addEventListener("input",e => {
+        idSel("flickers_speed").value = e.target.value;
+        flsp=e.target.value;
+        localStorage.setItem("flsp",[flsp,localStorage.getItem("flsp")==null?"t":localStorage.getItem("flsp").substr(-2,2)==",t"||",f"?localStorage.getItem("flsp").substr(-1,1):"t"])
     })
-    $("#circle_wh").on("change keyup paste mouseup",function(){
-        if($(this).val()<0){
-            $("#circle_wh").val(0)
-            $("#circle_wh_ran").val(0)
-            $(".c_line").css({"width":`0px`,"height":`0px`})
-            localStorage.setItem("circle-wh",0)
+    idSel("circle_wh").addEventListener("input",e => {
+        if(e.target.value<0){
+            idSel("circle_wh").value = 0;
+            idSel("circle_wh_ran").value = 0;
+            querySelAll(".c_line").forEach(i => {
+                i.style.width = `0px`;
+                i.style.height = `0px`;
+            });
+            localStorage.setItem("circle-wh",0);
         }else{
-            $("#circle_wh_ran").val($(this).val())
-            $(".c_line").css({"width":`${$(this).val()}px`,"height":`${$(this).val()}px`})
-            localStorage.setItem("circle-wh",$(this).val())
+            idSel("circle_wh_ran").value = e.target.value;
+            querySelAll(".c_line").forEach(i => {
+                i.style.width = `${e.target.value}px`;
+                i.style.height = `${e.target.value}px`;
+            });
+            localStorage.setItem("circle-wh",e.target.value);
         }
     })
-    $("#circle_wh_ran").on("change keyup paste mouseup",function(){
-        $("#circle_wh").val($(this).val())
-        $(".c_line").css({"width":`${$(this).val()}px`,"height":`${$(this).val()}px`})
-        localStorage.setItem("circle-wh",$(this).val())
+    idSel("circle_wh_ran").addEventListener("input",e => {
+        idSel("circle_wh").value = e.target.value;
+        querySelAll(".c_line").forEach(i => {
+            i.style.width = `${e.target.value}px`;
+            i.style.height = `${e.target.value}px`;
+        });
+        localStorage.setItem("circle-wh",e.target.value);
     })
-    $("#bg_blur").on("change keyup paste mouseup",function(){
-        if($(this).val()<0){
-            $("#bg_blur").val(0)
-            $("#bg_blur_ran").val(0)
-            $(".c_line").css({"width":`0px`,"height":`0px`})
-            localStorage.setItem("bg-blur",0)
+    idSel("bg_blur").addEventListener("input",e => {
+        if(e.target.value<0){
+            idSel("bg_blur").value = 0;
+            idSel("bg_blur_ran").value = 0;
+            querySelAll(".c_line").forEach(i => {
+                i.style.width = `0px`;
+                i.style.height = `0px`;
+            });
+            localStorage.setItem("bg-blur",0);
         }else{
-            $("#bg_blur_ran").val($(this).val())
-            $(".bg").css({"filter":`blur(${$(this).val()}px)`})
-            localStorage.setItem("bg-blur",$(this).val())
+            idSel("bg_blur_ran").value = e.target.value;
+            querySelAll(".bg").forEach(i => i.style.filter = `blur(${e.target.value}px)`);
+            localStorage.setItem("bg-blur",e.target.value)
         }
     })
-    $("#bg_blur_ran").on("change keyup paste mouseup",function(){
-        $("#bg_blur").val($(this).val())
-        $(".bg").css({"filter":`blur(${$(this).val()}px)`})
-        localStorage.setItem("bg-blur",$(this).val())
+    idSel("bg_blur_ran").addEventListener("input",e => {
+        idSel("bg_blur").value = e.target.value;
+        querySelAll(".bg").forEach(i => i.style.filter = `blur(${e.target.value}px)`);
+        localStorage.setItem("bg-blur",e.target.value)
     })
-    $("#bg-color").on("change keyup paste mouseup",function(){
-        $("#bg-color-text").val($(this).val())
-        $("body").css({"background-color":$(this).val()})
-        localStorage.setItem("bg-color",[$(this).val(),localStorage.getItem("bg-color")==null?"t":localStorage.getItem("bg-color").substr(-2,2)==",t"||",f"?localStorage.getItem("bg-color").substr(-1,1):"t"])
+    idSel("bg-color").addEventListener("input",e => {
+        idSel("bg-color-text").value = e.target.value;
+        querySel("body").style.backgroundColor = e.target.value;
+        localStorage.setItem("bg-color",[e.target.value,localStorage.getItem("bg-color")==null?"t":localStorage.getItem("bg-color").substr(-2,2)==",t"||",f"?localStorage.getItem("bg-color").substr(-1,1):"t"])
     })
-    $("#bg-color-text").on("change keyup paste mouseup",function(){
-        hexcor($(this).val(),$("#bg-color"),"bg-color")
-        $("body").css({"background-color":`${hexcl}`})
+    idSel("bg-color-text").addEventListener("input",e => {
+        hexcor(e.target.value,idSel("bg-color"),"bg-color")
+        querySel("body").style.backgroundColor = hexcl;
     })
-    $(".bg-img").on("click",function(){
-        bg=$(this).index()
-        $(".bg,.bg-image").css({"background-image":`url(./images/bg-${bg}.jpg)`})
-        localStorage.setItem("bg",[$(this).index(),localStorage.getItem("bg")==null?"t":localStorage.getItem("bg").substr(-2,2)==",t"||",f"?localStorage.getItem("bg").substr(-1,1):"t"])
-    })
+    querySelAll(".bg-img").forEach(i => i.addEventListener("click",e => {
+        bg = idx(e.target);
+        querySelAll(".bg,.bg-image").forEach(i => i.style.backgroundImage = `url(./images/bg-${bg}.jpg)`);
+        localStorage.setItem("bg",[idx(e.target),localStorage.getItem("bg")==null?"t":localStorage.getItem("bg").substr(-2,2)==",t"||",f"?localStorage.getItem("bg").substr(-1,1):"t"])
+    }))
     // toggle
-    $(document).on("click",".toggle",function(){
-        if($(this).is(".toggle_false")){
-            $(this).removeClass("toggle_false")
-            switch($(this).index()){
+    querySelAll(".toggle").forEach(i => i.addEventListener("click",e => {
+        if(fClass(e.target,"toggle_false")){
+            e.target.classList.remove("toggle_false");
+            switch(idx(e.target)){
                 case 0:
-                    $("#rain").css({"display":"block"})
+                    idSel("snow").style.display = "block";
                     settf("flakeCount",2000,"t")
                     break
                 case 7:
-                    $(".time").css({"display":""})
+                    querySelAll(".time").forEach(i => i.style.display = "");
                     settf("text-color","#ffffff","t")
                     break
                 case 10:
-                    hexcl=$("#text-shadow").val()
-                    $(".time").css({"text-shadow":`${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`})
+                    hexcl = idSel("text-shadow").value
+                    querySelAll(".time").forEach(i => i.style.textShadow = `${hexcl} 0 0 5px,${hexcl} 0 0 5px,${hexcl} 0 0 5px`);
                     settf("text-shadow","#77ffbb","t")
                     break
                 case 12:
-                    $(".time").removeClass("nobl")
+                    querySelAll(".time").forEach(i => i.classList.remove("nofl"));
                     setime()
                     setime()
                     setime()
-                    settf("blsp",10,"t")
+                    settf("flsp",10,"t")
                     break
                 case 14:
-                    $(".c_line").css({"display":""})
+                    querySelAll(".c_line").forEach(i => i.style.display = "");
                     settf("circle-color","#ffffff","t")
                     break
                 case 19:
-                    hexcl=$("#circle-shadow").val()
-                    $(".c_line").css({"box-shadow":`${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`})
+                    hexcl = idSel("circle-shadow").value
+                    querySelAll(".c_line").forEach(i => i.style.boxShadow = `${hexcl} 0 0 20px 5px,${hexcl} 0 0 20px 5px inset`);
                     settf("circle-shadow","#77ffbb","t")
                     break
                 case 21:
-                    $(".bg").css({"display":`block`})
+                    querySelAll(".bg").forEach(i => i.style.display = `block`);
                     settf("bg","0","t")
                     break
             }
         }else{
-            $(this).addClass("toggle_false")
-            switch($(this).index()){
+            e.target.classList.add("toggle_false");
+            switch(idx(e.target)){
                 case 0:
-                    $("#rain").css({"display":"none"})
+                    idSel("snow").style.display = "none";
                     settf("flakeCount",2000,"f")
                     break
                 case 7:
-                    $(".time").css({"display":"none"})
+                    querySelAll(".time").forEach(i => i.style.display = "none");
                     settf("text-color","#ffffff","f")
                     break
                 case 10:
-                    $(".time").css({"text-shadow":"none"})
+                    querySelAll(".time").forEach(i => i.style.textShadow = "none");
                     settf("text-shadow","#77ffbb","f")
                     break
                 case 12:
-                    $(".time").addClass("nobl")
-                    settf("blsp",10,"f")
+                    querySelAll(".time").forEach(i => i.classList.add("nofl"));
+                    settf("flsp",10,"f")
                     break
                 case 14:
-                    $(".c_line").css({"display":"none"})
+                    querySelAll(".c_line").forEach(i => i.style.display = "none");
                     settf("circle-color","#ffffff","f")
                     break
                 case 19:
-                    $(".c_line").css({"box-shadow":"none"})
+                    querySelAll(".c_line").forEach(i => i.style.boxShadow = "none");
                     settf("circle-shadow","#77ffbb","f")
                     break
                 case 21:
-                    $(".bg").css({"display":"none"})
+                    querySelAll(".bg").forEach(i => i.style.display = "none");
                     settf("bg","0","f")
                     break
             }
         }
-    })
-    .on("click",".reset",function(){
+    }))
+    querySelAll(".reset").forEach(i => i.addEventListener("click",e => {
         if(confirm("설정한 값을 초기화 하시겠습니까?")){
-            var num_p=$(".menu .num"),color_p=$(".menu .color")
-            $(num_p[0]).children("input").val(2000)
-            $(num_p[1]).children("input").val(1.5)
-            $(num_p[2]).children("input").val(200)
-            $(color_p[0]).children("input").val("#ffffff")
-            $(color_p[1]).children("input").val("#77ffbb")
-            $(num_p[3]).children("input").val(10)
-            $(num_p[4]).children("input").val(700)
-            $(color_p[2]).children("input").val("#ffffff")
-            $(color_p[3]).children("input").val("#77ffbb")
-            $(color_p[4]).children("input").val("#ffffff")
-            $(num_p[5]).children("input").val(5)
+            let
+            num_p = querySelAll(".menu .num"),
+            color_p = querySelAll(".menu .color");
+            num_p[0].querySelectorAll("input").forEach(i => i.value = 2000);
+            num_p[1].querySelectorAll("input").forEach(i => i.value = 1.5);
+            num_p[2].querySelectorAll("input").forEach(i => i.value = 200);
+            color_p[0].querySelectorAll("input").forEach(i => i.value = "#ffffff");
+            color_p[1].querySelectorAll("input").forEach(i => i.value = "#77ffbb");
+            num_p[3].querySelectorAll("input").forEach(i => i.value = 10);
+            num_p[4].querySelectorAll("input").forEach(i => i.value = Math.floor((winw/100)*40));
+            color_p[2].querySelectorAll("input").forEach(i => i.value = "#ffffff");
+            color_p[3].querySelectorAll("input").forEach(i => i.value = "#77ffbb");
+            color_p[4].querySelectorAll("input").forEach(i => i.value = "#ffffff");
+            num_p[5].querySelectorAll("input").forEach(i => i.value = 5);
             flakeCount=2000
             snowSpeed=1.5
             mouseMoveR=200
-            $(".time").css({"color":"#ffffff"})
-            $(".time").css({"text-shadow":`#77ffbb 0 0 5px,#77ffbb 0 0 5px,#77ffbb 0 0 5px`})
-            blsp=10
-            $(".c_line").css({"width":`700px`,"height":`700px`})
-            $(".c_line").css({"border-color":"#ffffff"})
-            $(".c_line").css({"box-shadow":`#77ffbb 0 0 20px 5px,#77ffbb 0 0 20px 5px inset`})
-            $("body").css({"background":"#ffffff"})
-            $(".bg").css({"filter":`blur(5px)`})
+            flsp=10
             localStorage.clear()
-            $(".toggle").removeClass("toggle_false")
-            $(".blink_t").addClass("toggle_false")
-            $("#rain").css({"display":`block`})
-            $(".time").css({"display":`block`})
-            $(".c_line").css({"display":`block`})
-            $(".bg").css({"display":`block`})
-            $(".bg,.bg-image").css({"background-image":`url(./images/bg-0.jpg)`})
+            snow_speed_reset()
+            querySelAll(".time").forEach(i => i.style.color = "#ffffff");
+            querySelAll(".time").forEach(i => i.style.textShadow = `#77ffbb 0 0 5px,#77ffbb 0 0 5px,#77ffbb 0 0 5px`);
+            querySelAll(".c_line").forEach(i =>{
+                i.style.width = `${Math.floor((winw/100)*40)}px`;
+                i.style.height = `${Math.floor((winw/100)*40)}px`;
+            });
+            querySelAll(".c_line").forEach(i => i.style.borderColor = "#ffffff");
+            querySelAll(".c_line").forEach(i => i.style.boxShadow = `#77ffbb 0 0 20px 5px,#77ffbb 0 0 20px 5px inset`);
+            querySel("body").style.background = "#ffffff";
+            querySelAll(".bg").forEach(i => i.style.filter = `blur(5px)`);
+            querySelAll(".toggle").forEach(i => i.classList.remove("toggle_false"));
+            querySelAll(".flickers_t").forEach(i => i.classList.add("toggle_false"));
+            idSel("snow").style.display = `block`;
+            querySelAll(".time").forEach(i => i.style.display = `block`);
+            querySelAll(".time").forEach(i => i.classList.add("nofl"));
+            querySelAll(".c_line").forEach(i => i.style.display = `block`);
+            querySelAll(".bg").forEach(i => i.style.display = `block`);
+            querySelAll(".bg,.bg-image").forEach(i => i.style.backgroundImage = `url(./images/bg-0.jpg)`);
         }
-    })
-})
+    }))
+    querySelAll(".bg-image").forEach(i => i.addEventListener("click",e => {
+        querySelAll(".sub_menu").forEach(i => i.classList.toggle("tab"));
+    }))
+}
 function num(n,w){
     n=n+""
     return n.length>=w?n:new Array(w-n.length+1).join("0")+n
 }
-$(document).keydown(function(key){
+document.addEventListener("keydown",function(key){
     if(key.keyCode==9){
         key.preventDefault();
-        $(".menu").toggleClass("tab")
-        $("#sub_menu").toggleClass("toggletab")
-        $(".sub_menu").removeClass("tab")
+        querySelAll(".menu").forEach(i=> i.classList.toggle("tab"));
+        idSel("sub_menu").classList.toggle("toggletab");
+        querySelAll(".sub_menu").forEach(i => i.classList.remove("tab"));
     }
 })
-.on("click",".bg-image",function(){
-    $(".sub_menu").toggleClass("tab")
+document.addEventListener("mousedown",function(e){
+    if(e.target.localName == "input" || fClass(e.target,"toggle") || fClass(e.target,"bg-image")){
+        dop=false
+    }else{
+        x=e.pageX
+    }
+})
+document.addEventListener("mouseup",function(e){
+    if(dop==true){
+        if(e.pageX-x>0){
+            if(fClass(querySelAll(".menu")[0],"tab")){
+                querySelAll(".sub_menu").forEach(i => i.classList.add("tab"));
+            }else{
+                querySelAll(".menu").forEach(i => i.classList.add("tab"));
+                idSel("sub_menu").classList.add("toggletab");
+            }
+        }else if(x-e.pageX>0){
+            if(fClass(querySelAll(".sub_menu")[0],"tab")){
+                querySelAll(".sub_menu").forEach(i => i.classList.remove("tab"));
+            }else{
+                querySelAll(".menu").forEach(i => i.classList.remove("tab"));
+                idSel("sub_menu").classList.remove("toggletab");
+            }
+        }
+    }else{
+        dop=true
+    }
 })
 function hexcor(c,r,l){
     if(c.length==7&&c[0]=="#"){
@@ -294,10 +351,34 @@ function hexcor(c,r,l){
     }
 }
 function sethexcor(c,r,l){
-    r.val(c)
-    hexcl=c
+    r.value = c
+    hexcl = c
     localStorage.setItem(l,[c,localStorage.getItem(l)==null?"t":localStorage.getItem(l).substr(-2,2)==",t"||",f"?localStorage.getItem(l).substr(-1,1):"t"])
 }
 function settf(l,c,t){
     localStorage.setItem(l,[localStorage.getItem(l)==null?c:localStorage.getItem(l).substr(-2,2)==",t"||",f"?localStorage.getItem(l).substr(0,localStorage.getItem(l).length-2):localStorage.getItem(l),t])
 }
+function fClass(i,c) {
+    if(i.classList == null){
+        return false;
+    }
+    let result = i.classList.value.indexOf(c) != -1 ? true : false;
+    return result;
+}
+function idSel(id) {
+    return document.getElementById(id);
+}
+function querySel(query) {
+    return document.querySelector(query);
+}
+function querySelAll(query) {
+    return document.querySelectorAll(query);
+}
+function idx(el) {
+    if (!el) return -1;
+    var i = 0;
+    do {
+      i++;
+    } while (el = el.previousElementSibling);
+    return i -1;
+  }
