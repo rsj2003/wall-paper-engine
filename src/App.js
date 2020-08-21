@@ -1,14 +1,14 @@
-import localStorage from './localStorage';
+import { init } from './initialize';
 import storage from './storage';
 import { querySel, querySelAll } from "./utils";
 import { StyleService } from "./services";
 
 let time = new Date(), flsp, bltf, bg, x, dop = true;
-const winw = window.innerWidth, winh = window.innerHeight;
-window.onload = e => {
+const winw = window.innerWidth;
 
+window.onload = e => {
     snow_js();
-    local();
+    init();
 
     window.scrollTo(0, 1);
     const
