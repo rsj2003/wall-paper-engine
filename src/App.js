@@ -1,3 +1,5 @@
+import localStorage from './localStorage';
+
 var hexcl, time = new Date(), flsp, bltf, bg, x, dop = true;
 let winw = window.innerWidth, winh = window.innerHeight;
 window.onload = e => {
@@ -342,59 +344,3 @@ document.addEventListener("mouseup", function (e) {
         dop = true
     }
 })
-
-function hexcor(c, r, l) {
-    if (c.length == 7 && c[0] == "#") {
-        sethexcor(c, r, l)
-    } else if (c.length == 6 && c[0] != "#") {
-        c = "#" + c
-        sethexcor(c, r, l)
-    } else if (c.length == 4 && c[0] == "#") {
-        var hex = ["#", c[1], c[1], c[2], c[2], c[3], c[3]]
-        c = hex.join("")
-        sethexcor(c, r, l)
-    } else if (c.length == 3 && c[0] != "#") {
-        var hex = ["#", c[0], c[0], c[1], c[1], c[2], c[2]]
-        c = hex.join("")
-        sethexcor(c, r, l)
-    }
-}
-
-function sethexcor(c, r, l) {
-    r.value = c
-    hexcl = c
-    localStorage.setItem(l, [c, localStorage.getItem(l) == null ? "t" : localStorage.getItem(l).substr(-2, 2) == ",t" || ",f" ? localStorage.getItem(l).substr(-1, 1) : "t"])
-}
-
-function settf(l, c, t) {
-    localStorage.setItem(l, [localStorage.getItem(l) == null ? c : localStorage.getItem(l).substr(-2, 2) == ",t" || ",f" ? localStorage.getItem(l).substr(0, localStorage.getItem(l).length - 2) : localStorage.getItem(l), t])
-}
-
-function fClass(i, c) {
-    if (i.classList == null) {
-        return false;
-    }
-    let result = i.classList.value.indexOf(c) != -1 ? true : false;
-    return result;
-}
-
-function idSel(id) {
-    return document.getElementById(id);
-}
-
-function querySel(query) {
-    return document.querySelector(query);
-}
-
-function querySelAll(query) {
-    return document.querySelectorAll(query);
-}
-
-function idx(el) {
-    if (!el) return -1;
-    var i = 0;
-    do {
-        i++;
-    } while (el = el.previousElementSibling);
-    return i - 1;
-}
